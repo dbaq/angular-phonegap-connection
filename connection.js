@@ -17,6 +17,26 @@ angular.module('dbaq.phonegap.connection',
             onSuccess.apply(networkState);
           });
         }
-      })
+      }),
+	  addConnectionListener: function(connectedCallback, disconnectedCallback) {
+        if (connectedCallback) {
+          document.addEventListener(
+            'online',
+            function() {
+              $rootScope.$apply(connectedCallback);
+            },
+            false
+          );
+        }
+        if (disconnectedCallback) {
+          document.addEventListener(
+            'offline',
+            function() {
+              $rootScope.$apply(disconnectedCallback);
+            },
+            false
+          );
+        }
+      }
     };
   });
